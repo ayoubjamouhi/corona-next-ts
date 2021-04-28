@@ -8,7 +8,7 @@ type Props = {
 
 const Layout: React.FC<Props> = ({
   children,
-  title = 'This is the default title',
+  title = 'Corona virus statistics',
 }: Props) => (
   <div>
     <Head>
@@ -19,7 +19,9 @@ const Layout: React.FC<Props> = ({
     {children}
     <footer>
       <hr />
-      <span>I'm here to stay (Footer)</span>
+      <div className="text-center text-grey-300">
+        Build with next.js By @ayoubjamouhi
+      </div>
     </footer>
   </div>
 );
