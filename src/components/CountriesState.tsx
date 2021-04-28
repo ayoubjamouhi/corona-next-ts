@@ -1,15 +1,27 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 
 interface Props {
   url: string;
+}
+interface Country {
+  name: string;
+  iso2: string;
+  iso3: string;
+}
+
+interface Countries {
+  countries: Array<Country>;
 }
 export const CountriesState: React.FC<Props> = ({ url }: Props) => {
   const [scountries, setScountries] = useState<Array<Object>>([]);
   useEffect(() => {
     async function fetchCountries() {
-      const countries = await axios.get(url).catch((err) => console.log(err));
-      console.log(countries);
+      const countries: AxiosResponse<Countries> = await axios
+        .get<Countries>(url)
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
+      // console.log(countries);
       const c = countries.data.countries.map(
         async (country: { name: string; iso2: string; iso3: string }) => {
           const countryName = country.name;
@@ -24,7 +36,6 @@ export const CountriesState: React.FC<Props> = ({ url }: Props) => {
                 `https://covid19.mathdro.id/api/countries/${codeCountry}/confirmed`
               )
               .catch(error => {}); */
-            if (stats === undefined) console.log({ codeCountry, stats });
             let datastats = null;
             if (stats !== undefined) {
               datastats = stats.data;
@@ -44,12 +55,8 @@ export const CountriesState: React.FC<Props> = ({ url }: Props) => {
       );
 
       const data = await Promise.all(c);
-      console.log(data);
       const sort = data
-        .filter((elem) => {
-          console.log(elem);
-          return elem !== undefined && elem.datastats !== undefined;
-        })
+        .filter((elem) => elem !== undefined && elem.datastats !== undefined)
         .sort((a, b) => {
           if (a.datastats != null && b.datastats != null) {
             return b.datastats.confirmed.value - a.datastats.confirmed.value;
