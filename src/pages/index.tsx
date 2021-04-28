@@ -1,7 +1,6 @@
-import Link from 'next/link';
-import Layout from '../src/components/Layout';
-import Stats from '../src/components/Stats';
-import CountriesState from '../src/components/CountriesState';
+import Layout from '../components/Layout';
+import Stats from '../components/Stats';
+import { CountriesState } from '../components/CountriesState';
 
 const IndexPage = () => (
   <Layout title="Coronavirus statistics">

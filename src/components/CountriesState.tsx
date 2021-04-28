@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-function CountriesState({ url }) {
-  const [scountries, setScountries] = useState([]);
+interface Props {
+  url: string;
+}
+export const CountriesState: React.FC<Props> = ({ url }: Props) => {
+  const [scountries, setScountries] = useState<Array<Object>>([]);
   useEffect(() => {
     async function fetchCountries() {
       const countries = await axios.get(url).catch((err) => console.log(err));
@@ -103,6 +106,4 @@ function CountriesState({ url }) {
       </tbody>
     </table>
   );
-}
-
-export default CountriesState;
+};
