@@ -19,7 +19,6 @@ export const CountriesState: React.FC<Props> = ({ url }: Props) => {
     async function fetchCountries() {
       const countries: AxiosResponse<Countries> = await axios
         .get<Countries>(url)
-        .then((res) => console.log(res))
         .catch((err) => console.log(err));
       // console.log(countries);
       const c = countries.data.countries.map(
